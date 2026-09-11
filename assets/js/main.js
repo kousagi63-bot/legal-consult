@@ -41,6 +41,64 @@ document.addEventListener('DOMContentLoaded', function () {
     el.setAttribute('href', '404.html');
   });
 
+  // ----- Mobile Full-Screen Menu Toggler & Scroll Lock -----
+  var navMenu = document.getElementById('navMenu');
+  var navToggler = document.querySelector('.navbar-toggler');
+  var togglerIcon = navToggler ? navToggler.querySelector('i') : null;
+
+  if (navMenu && navToggler) {
+    navMenu.addEventListener('show.bs.collapse', function () {
+      document.body.classList.add('mobile-nav-open');
+      if (togglerIcon) {
+        togglerIcon.classList.remove('fa-bars');
+        togglerIcon.classList.add('fa-xmark');
+      }
+    });
+
+    navMenu.addEventListener('hide.bs.collapse', function () {
+      document.body.classList.remove('mobile-nav-open');
+      if (togglerIcon) {
+        togglerIcon.classList.remove('fa-xmark');
+        togglerIcon.classList.add('fa-bars');
+      }
+    });
+
+    // Close mobile full-screen menu when clicking any link
+    navMenu.querySelectorAll('.nav-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.innerWidth < 992 && navMenu.classList.contains('show')) {
+          var bsCollapse = bootstrap.Collapse.getInstance(navMenu);
+          if (bsCollapse) {
+            bsCollapse.hide();
+          } else {
+            navMenu.classList.remove('show');
+            document.body.classList.remove('mobile-nav-open');
+            if (togglerIcon) {
+              togglerIcon.classList.remove('fa-xmark');
+              togglerIcon.classList.add('fa-bars');
+            }
+          }
+        }
+      });
+    });
+
+    // Clean up when resizing back to desktop viewport
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 992) {
+        document.body.classList.remove('mobile-nav-open');
+        if (navMenu.classList.contains('show')) {
+          var bsCollapse = bootstrap.Collapse.getInstance(navMenu);
+          if (bsCollapse) bsCollapse.hide();
+          else navMenu.classList.remove('show');
+        }
+        if (togglerIcon) {
+          togglerIcon.classList.remove('fa-xmark');
+          togglerIcon.classList.add('fa-bars');
+        }
+      }
+    });
+  }
+
   // ----- Navbar scroll effect -----
   var nav = document.getElementById('mainNav');
   var backToTop = document.getElementById('backToTop');
@@ -97,8 +155,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!reducedMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // ----- SplitType letter-by-letter heading animations -----
-    if (typeof SplitType !== 'undefined') {
+    // ----- SplitType letter-by-letter heading animations (Desktop viewports only to avoid mobile word collision) -----
+    if (typeof SplitType !== 'undefined' && window.innerWidth >= 992) {
       var splitHeadings = [];
       document.querySelectorAll('h1, h2').forEach(function (h) {
         if (h.closest('.accordion-header') || h.closest('nav') || h.closest('footer') || h.classList.contains('hero-animated-heading')) return;

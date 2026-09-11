@@ -173,6 +173,16 @@
 }
 .password-toggle:hover { color: var(--gold); background: rgba(171,135,82,0.08); }
 .password-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+
+/* Hide the browser's built-in password reveal eye */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+}
 .auth-error { display: none; font-size: 0.76rem; color: var(--oxblood); margin: 0.45rem 0 0; }
 .auth-field.invalid .auth-error { display: block; animation: slide-down 0.25s var(--transition-smooth); }
 @keyframes slide-down { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }

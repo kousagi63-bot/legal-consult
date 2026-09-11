@@ -411,6 +411,17 @@ body.dashboard {
 }
 .dash-card-head .muted { font-size: 0.76rem; color: var(--text-light); }
 
+.appointment-message {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #155724;
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.25);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+}
+.appointment-message[hidden] { display: none; }
+
 /* Stat cards */
 .stat-card {
   display: flex;

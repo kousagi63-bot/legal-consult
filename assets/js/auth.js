@@ -62,7 +62,7 @@
         var show = input.type === 'password';
         input.type = show ? 'text' : 'password';
         var icon = btn.querySelector('i');
-        if (icon) icon.className = show ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+        if (icon) icon.className = show ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
         btn.setAttribute('aria-pressed', String(show));
         btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
         input.focus();

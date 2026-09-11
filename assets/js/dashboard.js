@@ -286,6 +286,7 @@
     function isAllowed(el) {
       if (el.matches('a[href="login.html"], a[href="logout.html"]')) return true;
       if (el.matches('[data-dropdown-toggle]')) return true;
+      if (el.closest('#appointmentRequestForm')) return true;
       if (sidebar && sidebar.contains(el)) return true;
       if (el.closest('.dash-dropdown')) return true;
       if (notifPage && (el.closest('#notifChips') || el.closest('#notifList'))) return true;
@@ -299,6 +300,36 @@
       e.stopPropagation();
       window.location.href = '404.html';
     }, true);
+  }
+
+  /* --- Book an Appointment: require Service, Date & Time, then
+     add the request to the appointments history table. --- */
+  function initAppointmentForm() {
+    var form = document.getElementById('appointmentRequestForm');
+    if (!form) return;
+
+    var requiredIds = ['apptService', 'apptDate', 'apptTime'];
+    var msg = form.querySelector('.appointment-message');
+
+    form.addEventListener('submit', function (e) {
+      var inputs = requiredIds.map(function (id) { return document.getElementById(id); });
+      var firstInvalid = null;
+      inputs.forEach(function (input) {
+        var empty = !input || input.value.trim() === '';
+        input.classList.toggle('is-invalid', empty);
+        if (empty && !firstInvalid) firstInvalid = input;
+      });
+
+      e.preventDefault();
+
+      if (firstInvalid) {
+        if (msg) msg.hidden = true;
+        firstInvalid.focus();
+        return;
+      }
+
+      window.location.href = '404.html';
+    });
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -318,6 +349,7 @@
     initUserDisplay();
     initSignOut();
     initSessionGuard();
+    initAppointmentForm();
     initTestNavGuard();
   });
 })();

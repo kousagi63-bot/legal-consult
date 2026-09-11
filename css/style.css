@@ -2164,3 +2164,55 @@ body.home-page {
   .home-page .hero p { text-align: center !important; }
   .home-page .hero-highlights-row { justify-content: center !important; }
 }
+
+/* -------------------------------------------------------
+   Blog (insights) author cards: equal height with the
+   "View Profile" link pinned to the bottom of every card
+   so all links line up across the row
+   ------------------------------------------------------- */
+.authors-row .team-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.authors-row .team-card .image-wrapper { flex-shrink: 0; }
+.authors-row .team-card .card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+.authors-row .view-profile {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.authors-row .view-profile i { transition: transform 0.3s ease; }
+.authors-row .view-profile:hover i { transform: translateX(3px); }
+
+/* -------------------------------------------------------
+   Card footer alignment: keep meta / case-result /
+   "Browse Insights" pinned to the bottom of every card so
+   they line up across a row
+   ------------------------------------------------------- */
+.insight-card,
+.case-card {
+  display: flex;
+  flex-direction: column;
+}
+.insight-card img,
+.case-card .card-img { flex-shrink: 0; }
+.insight-card .card-body,
+.case-card .card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+.insight-card .card-body .meta,
+.case-card .case-result {
+  margin-top: auto;
+}

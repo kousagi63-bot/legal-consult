@@ -308,7 +308,7 @@
     var form = document.getElementById('appointmentRequestForm');
     if (!form) return;
 
-    var requiredIds = ['apptService', 'apptDate', 'apptTime'];
+    var requiredIds = ['apptService', 'apptCounsel', 'apptDate', 'apptTime', 'apptNotes'];
     var msg = form.querySelector('.appointment-message');
 
     form.addEventListener('submit', function (e) {

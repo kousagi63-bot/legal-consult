@@ -354,6 +354,14 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
+    // Phone inputs: strip alphabetic characters as the user types
+    form.querySelectorAll('input[type="tel"]').forEach(function (tel) {
+      tel.addEventListener('input', function () {
+        var cleaned = tel.value.replace(/[^0-9+\s()\-/.]/g, '');
+        if (cleaned !== tel.value) tel.value = cleaned;
+      });
+    });
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -399,6 +407,24 @@ document.addEventListener('DOMContentLoaded', function () {
           field.classList.add('field-error');
           if (!firstInvalid) firstInvalid = field;
           errorList.push('Please enter a valid email address.');
+        }
+      });
+
+      // Validate phone fields: digits/formatting characters only, at least 7 digits
+      form.querySelectorAll('input[type="tel"]').forEach(function (field) {
+        var val = (field.value || '').trim();
+        if (!val) return;
+        if (/[A-Za-z]/.test(val)) {
+          field.classList.add('field-error');
+          if (!firstInvalid) firstInvalid = field;
+          errorList.push('Phone number cannot contain letters.');
+        } else {
+          var digits = val.replace(/\D/g, '');
+          if (digits.length < 7) {
+            field.classList.add('field-error');
+            if (!firstInvalid) firstInvalid = field;
+            errorList.push('Please enter a valid phone number.');
+          }
         }
       });
 

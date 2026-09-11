@@ -169,7 +169,8 @@
                 </div>
                 <div class="mb-3">
                   <label for="apptCounsel" class="form-label">Preferred Counsel</label>
-                  <select class="form-select" id="apptCounsel">
+                  <select class="form-select" id="apptCounsel" required>
+                    <option value="" disabled selected>Select counsel...</option>
                     <option>Any available counsel</option>
                     <option>Sarah Chen</option>
                     <option>David Osei</option>
@@ -189,7 +190,7 @@
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="apptNotes" class="form-label">Notes</label>
-                  <textarea class="form-control" id="apptNotes" rows="2" placeholder="Briefly describe what you need to discuss"></textarea>
+                  <textarea class="form-control" id="apptNotes" rows="2" placeholder="Briefly describe what you need to discuss" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-gold w-100"><i class="fa-solid fa-calendar-plus me-2"></i>Request Appointment</button>
                 <div class="appointment-message fs-14 mt-3" hidden></div>
